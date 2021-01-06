@@ -1,8 +1,21 @@
-// from data.js
 var tableData = data;
-
 var button = d3.select("#filter-btn");
 var form = d3.select("#form");
+var tbody = d3.select("tbody");
+var resetbtn = d3.select("#reset-btn");
+var columns = ["datetime", "city", "state", "country", "shape", "durationMinutes", "comments"]
+
+var populate = (dataInput) => {
+
+  dataInput.forEach(ufoSightings => {
+    var row = tbody.append("tr");
+    columns.forEach(column => row.append("td").text(ufoSightings[column])
+    )
+  });
+}
+
+//Populate table
+populate(data);
 
 button.on("click", runEnter);
 form.on("submit",runEnter);
@@ -10,13 +23,25 @@ form.on("submit",runEnter);
 function runEnter() {
     d3.event.preventDefault();
 
-    var inputElement = d3.select("#datetime");
-    var inputDate= inputElement.property("value");
-    console.log(inputDate);
-    console.log(tableData);
+    var inputDate = d3.select("#datetime");
+    var inputCity = d3.select("#city");
+    var inputState = d3.select("#state");
+    var inputCountry = d3.select("#country");
+    var inputShape = d3.select("#shape");
+    // Filter by field matching input value
+    var filteredDate = data.filter(data => data.datetime === inputDate);
+    console.log(filteredDate);
+    var filteredCity = data.filter(data => data.city === inputCity);
+    console.log(filteredCity);
+    var filteredState = data.filter(data => data.state === inputState);
+    console.log(filteredState);
+    var filteredCountry = data.filter(data => data.country === inputCountry);
+    console.log(filteredCountry);
+    var filteredShape = data.filter(data => data.shape === inputShape);
+    console.log(filteredShape);
 
-    var filteredData = tableData.filter(tableData => tableData.datetime === inputDate);
-    console.log(filteredData);
+    var filterData = data.filter(data => data.datetime === inputDate && data.city === inputCity && data.state === inputState && data.country === inputCountry && data.shape === inputShape);
+    console.log(filterData);
 
     var tbody= d3.select("tbody");
 

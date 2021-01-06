@@ -10,6 +10,9 @@ form.on("submit",runEnter);
 function runEnter() {
     d3.event.preventDefault();
 
+    var filledData = d3.selectAll("#ufo-table>tbody>tr");
+    filledData.html("");
+
     var inputElement = d3.select("#datetime");
     var inputDate= inputElement.property("value");
     console.log(inputDate);
@@ -20,9 +23,9 @@ function runEnter() {
 
     var tbody= d3.select("tbody");
 
-    filteredData.forEach((sighting) => {
+    filteredData.forEach((entry) => {
         var row = tbody.append("tr"); 
-        Object.entries(sighting).forEach(([key,value])=> {
+        Object.entries(entry).forEach(([key,value])=> {
         var cell = row.append("td");
         cell.text(value);
         });
